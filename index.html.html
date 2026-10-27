@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="British Airways Virtual - a fictional flight simulation community."
+  >
+  <title>British Airways Virtual | Flight Simulation Community</title>
+
+  <style>
+    :root {
+      --navy: #061b3a;
+      --blue: #123f75;
+      --red: #d71920;
+      --white: #ffffff;
+      --off-white: #f5f7fa;
+      --text: #172033;
+      --muted: #637083;
+      --border: #dfe5ec;
+      --shadow: 0 16px 40px rgba(6, 27, 58, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      color: var(--text);
+      background: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .section-heading {
+      max-width: 700px;
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--red);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.15;
+    }
+
+    h2 {
+      margin-bottom: 14px;
+      color: var(--navy);
+      font-size: clamp(2rem, 4vw, 3.1rem);
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .site-header {
+      position: sticky;
+      z-index: 100;
+      top: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(6, 27, 58, 0.96);
+      color: var(--white);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      display: flex;
+      min-height: 76px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background:
+        linear-gradient(145deg, var(--white) 0 48%, var(--red) 49% 62%, #8bb4e3 63%);
+      color: var(--navy);
+      place-items: center;
+      font-size: 0.78rem;
+    }
+
+    .brand small {
+      display: block;
+      color: #a9bdd6;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #d8e3f0;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus {
+      color: var(--white);
+    }
+
+    .nav-join {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--red);
+      color: var(--white) !important;
+    }
+
+    .menu-button {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: var(--white);
+      font-size: 1.7rem;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 680px;
+      background:
+        radial-gradient(circle at 75% 20%, rgba(68, 126, 188, 0.42), transparent 28%),
+        linear-gradient(120deg, #04142d 0%, #0b315d 58%, #1c588a 100%);
+      color: var(--white);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -12%;
+      bottom: -38%;
+      width: 700px;
+      height: 700px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      min-height: 680px;
+      align-items: center;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin-bottom: 22px;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      letter-spacing: -0.04em;
+    }
+
+    .hero h1 span {
+      color: #9dc6ee;
+    }
+
+    .hero-copy > p {
+      max-width: 640px;
+      margin-bottom: 32px;
+      color: #d8e5f2;
+      font-size: 1.14rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 23px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .button-secondary {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: var(--white);
+    }
+
+    .flight-card {
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .flight-card h3 {
+      margin-bottom: 24px;
+      font-size: 1.15rem;
+    }
+
+    .route {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .airport-code {
+      display: block;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .airport-name {
+      color: #bfcfe0;
+      font-size: 0.76rem;
+    }
+
+    .route-line {
+      position: relative;
+      flex: 1;
+      height: 2px;
+      background: #7ca4cc;
+    }
+
+    .route-line::after {
+      position: absolute;
+      top: -6px;
+      right: 43%;
+      content: "✈";
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .flight-details {
+      display: grid;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .detail-label {
+      display: block;
+      color: #aac0d7;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    .stats {
+      position: relative;
+      z-index: 2;
+      margin-top: -54px;
+    }
+
+    .stats-grid {
+      display: grid;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      padding: 30px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--navy);
+      font-size: 2rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .fleet-section {
+      background: var(--off-white);
+    }
+
+    .fleet-toolbar {
+      display: flex;
+      margin-bottom: 30px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .filter-button {
+      padding: 9px 17px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .filter-button.active,
+    .filter-button:hover {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .fleet-count {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .aircraft-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 10px 30px rgba(6, 27, 58, 0.06);
+      transition: 0.22s ease;
+    }
+
+    .aircraft-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .aircraft-visual {
+      position: relative;
+      display: grid;
+      min-height: 180px;
+      overflow: hidden;
+      background: linear-gradient(160deg, #d9eaf8, #f8fbff);
+      place-items: center;
+    }
+
+    .aircraft-visual::before {
+      width: 175px;
+      height: 28px;
+      border-radius: 100% 15% 30% 100%;
+      background: var(--white);
+      box-shadow: 0 8px 18px rgba(6, 27, 58, 0.2);
+      content: "";
+      transform: rotate(-5deg);
+    }
+
+    .aircraft-visual::after {
+      position: absolute;
+      width: 80px;
+      height: 12px;
+      border-radius: 70% 10%;
+      background: var(--blue);
+      content: "";
+      transform: rotate(15deg);
+    }
+
+    .category-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(6, 27, 58, 0.88);
+      color: var(--white);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .aircraft-content {
+      padding: 23px;
+    }
+
+    .aircraft-content h3 {
+      margin-bottom: 6px;
+      color: var(--navy);
+      font-size: 1.35rem;
+    }
+
+    .aircraft-content > p {
+      min-height: 50px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .aircraft-specs {
+      display: grid;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .aircraft-specs span {
+      color: var(--muted);
+      font-size: 0.73rem;
+    }
+
+    .aircraft-specs strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .feature-number {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 900;
+      place-items: center;
+    }
+
+    .feature h3 {
+      margin-bottom: 9px;
+      color: var(--navy);
+    }
+
+    .feature p {
+      color: var(--muted);
+    }
+
+    .join {
+      color: var(--white);
+      background: linear-gradient(130deg, var(--navy), #164e80);
+    }
+
+    .join-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 44px;
+    }
+
+    .join h2 {
+      color: var(--white);
+    }
+
+    .join p {
+      max-width: 650px;
+      color: #ccdceb;
+    }
+
+    .footer {
+      padding: 36px 0;
+      background: #031025;
+      color: #9eb1c8;
+      font-size: 0.86rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .disclaimer {
+      max-width: 700px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        padding: 85px 0 115px;
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .stats-grid,
+      .fleet-grid,
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat:nth-child(2) {
+        border-right: 0;
+      }
+
+      .stat:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 76px;
+        right: 0;
+        left: 0;
+        display: none;
+        padding: 24px;
+        background: var(--navy);
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.8rem, 15vw, 4.7rem);
+      }
+
+      .stats-grid,
+      .fleet-grid,
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .fleet-toolbar,
+      .join-inner,
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .flight-details {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 68px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="British Airways Virtual home">
+        <span class="brand-mark">BAV</span>
+        <span>
+          British Airways Virtual
+          <small>Flight simulation community</small>
+        </span>
+      </a>
+
+      <button
+        class="menu-button"
+        id="menuButton"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#fleet">Fleet</a></li>
+        <li><a href="#operations">Operations</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a class="nav-join" href="#join">Join us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner container">
+        <div class="hero-copy">
+          <span class="eyebrow">Your journey starts here</span>
+          <h1>Fly further. <span>Fly together.</span></h1>
+          <p>
+            Join a worldwide virtual aviation community, operate realistic
+            routes and take command of a varied modern fleet.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#join">Become a pilot</a>
+            <a class="button button-secondary" href="#fleet">Explore the fleet</a>
+          </div>
+        </div>
+
+        <aside class="flight-card" aria-label="Featured virtual flight">
+          <h3>Featured route</h3>
+
+          <div class="route">
+            <div>
+              <span class="airport-code">LHR</span>
+              <span class="airport-name">London Heathrow</span>
+            </div>
+
+            <span class="route-line" aria-hidden="true"></span>
+
+            <div>
+              <span class="airport-code">JFK</span>
+              <span class="airport-name">New York Kennedy</span>
+            </div>
+          </div>
+
+          <div class="flight-details">
+            <div>
+              <span class="detail-label">Aircraft</span>
+              <strong>Boeing 777-300ER</strong>
+            </div>
+            <div>
+              <span class="detail-label">Flight time</span>
+              <strong>7h 45m</strong>
+            </div>
+            <div>
+              <span class="detail-label">Callsign</span>
+              <strong>BAV117</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stats-grid container">
+        <div class="stat">
+          <strong>6</strong>
+          <span>Aircraft types</span>
+        </div>
+        <div class="stat">
+          <strong>180+</strong>
+          <span>Virtual destinations</span>
+        </div>
+        <div class="stat">
+          <strong>24/7</strong>
+          <span>Global operations</span>
+        </div>
+        <div class="stat">
+          <strong>Free</strong>
+          <span>Community membership</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section fleet-section" id="fleet">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Our aircraft</span>
+          <h2>Explore the virtual fleet</h2>
+          <p class="lead">
+            Choose an aircraft for short-haul European sectors, long-haul
+            services or specialist regional operations.
+          </p>
+        </div>
+
+        <div class="fleet-toolbar">
+          <div class="filters" aria-label="Filter aircraft">
+            <button class="filter-button active" data-filter="all" type="button">
+              All aircraft
+            </button>
+            <button class="filter-button" data-filter="short" type="button">
+              Short haul
+            </button>
+            <button class="filter-button" data-filter="long" type="button">
+              Long haul
+            </button>
+          </div>
+
+          <span class="fleet-count" id="fleetCount">Showing 6 aircraft</span>
+        </div>
+
+        <div class="fleet-grid" id="fleetGrid">
+          <article class="aircraft-card" data-category="short">
+            <div class="aircraft-visual">
+              <span class="category-badge">Short haul</span>
+            </div>
+            <div class="aircraft-content">
+              <h3>Airbus A319</h3>
+              <p>A flexible narrow-body aircraft for regional and European routes.</p>
+              <div class="aircraft-specs">
+                <span>Range<strong>3,750 nm</strong></span>
+                <span>Cruise<strong>Mach 0.78</strong></span>
+                <span>Capacity<strong>Up to 144</strong></span>
+                <span>Role<strong>Regional</strong></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="aircraft-card" data-category="short">
+            <div class="aircraft-visual">
+              <span class="category-badge">Short haul</span>
+            </div>
+            <div class="aircraft-content">
+              <h3>Airbus A320neo</h3>
+              <p>A modern and efficient choice for busy short-haul services.</p>
+              <div class="aircraft-specs">
+                <span>Range<strong>3,500 nm</strong></span>
+                <span>Cruise<strong>Mach 0.78</strong></span>
+                <span>Capacity<strong>Up to 180</strong></span>
+                <span>Role<strong>European</strong></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="aircraft-card" data-category="short">
+            <div class="aircraft-visual">
+              <span class="category-badge">Short haul</span>
+            </div>
+            <div class="aircraft-content">
+              <h3>Airbus A321neo</h3>
+              <p>Higher capacity and extended range for demanding European sectors.</p>
+              <div class="aircraft-specs">
+                <span>Range<strong>4,000 nm</strong></span>
+                <span>Cruise<strong>Mach 0.78</strong></span>
+                <span>Capacity<strong>Up to 220</strong></span>
+                <span>Role<strong>High capacity</strong></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="aircraft-card" data-category="long">
+            <div class="aircraft-visual">
+              <span class="category-badge">Long haul</span>
+            </div>
+            <div class="aircraft-content">
+              <h3>Boeing 777-300ER</h3>
+              <p>A powerful wide-body aircraft built for major intercontinental routes.</p>
+              <div class="aircraft-specs">
+                <span>Range<strong>7,370 nm</strong></span>
+                <span>Cruise<strong>Mach 0.84</strong></span>
+                <span>Capacity<strong>Up to 300+</strong></span>
+                <span>Role<strong>Long haul</strong></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="aircraft-card" data-category="long">
+            <div class="aircraft-visual">
+              <span class="category-badge">Long haul</span>
+            </div>
+            <div class="aircraft-content">
+              <h3>Boeing 787-9</h3>
+              <p>A long-range Dreamliner suited to efficient global operations.</p>
+              <div class="aircraft-specs">
+                <span>Range<strong>7,635 nm</strong></span>
+                <span>Cruise<strong>Mach 0.85</strong></span>
+                <span>Capacity<strong>Up to 296</strong></span>
+                <span>Role<strong>Long haul</strong></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="aircraft-card" data-category="long">
+            <div class="aircraft-visual">
+              <span class="category-badge">Long haul</span>
+            </div>
+            <div class="aircraft-content">
+              <h3>Airbus A350-1000</h3>
+              <p>A flagship wide-body aircraft for premium long-distance services.</p>
+              <div class="aircraft-specs">
+                <span>Range<strong>8,700 nm</strong></span>
+                <span>Cruise<strong>Mach 0.85</strong></span>
+                <span>Capacity<strong>Up to 350+</strong></span>
+                <span>Role<strong>Flagship</strong></span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="operations">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Virtual operations</span>
+          <h2>A more rewarding way to fly</h2>
+          <p class="lead">
+            Build your virtual career through scheduled routes, community
+            events and accurately recorded simulator flights.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="feature-number">01</span>
+            <h3>Realistic schedules</h3>
+            <p>Choose from short-haul and long-haul routes across a worldwide network.</p>
+          </article>
+
+          <article class="feature">
+            <span class="feature-number">02</span>
+            <h3>Pilot progression</h3>
+            <p>Record flight hours, earn ranks and unlock new aircraft as you progress.</p>
+          </article>
+
+          <article class="feature">
+            <span class="feature-number">03</span>
+            <h3>Community events</h3>
+            <p>Take part in group flights, tours and special operations with other pilots.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fleet-section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">About the community</span>
+          <h2>Built by virtual pilots</h2>
+          <p class="lead">
+            British Airways Virtual is a fictional, non-commercial community
+            for flight-simulation enthusiasts. It is independently operated and
+            is not affiliated with or endorsed by British Airways Plc.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section join" id="join">
+      <div class="join-inner container">
+        <div>
+          <span class="eyebrow">Ready for departure?</span>
+          <h2>Start your virtual aviation career</h2>
+          <p>
+            Applications can be connected to your preferred membership or
+            community platform when you are ready to begin recruiting.
+          </p>
+        </div>
+
+        <a
+          class="button button-primary"
+          href="mailto:applications@example.com?subject=Pilot%20Application"
+        >
+          Apply to join
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner container">
+      <p>© <span id="year"></span> British Airways Virtual.</p>
+      <p class="disclaimer">
+        This is an independent, fictional flight-simulation community and is
+        not affiliated with, sponsored by or endorsed by British Airways Plc.
+        Airline names may be trademarks of their respective owners.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+    const filterButtons = document.querySelectorAll(".filter-button");
+    const aircraftCards = document.querySelectorAll(".aircraft-card");
+    const fleetCount = document.getElementById("fleetCount");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.textContent = "☰";
+      });
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedCategory = button.dataset.filter;
+        let visibleCards = 0;
+
+        filterButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        aircraftCards.forEach((card) => {
+          const shouldShow =
+            selectedCategory === "all" ||
+            card.dataset.category === selectedCategory;
+
+          card.classList.toggle("hidden", !shouldShow);
+
+          if (shouldShow) {
+            visibleCards++;
+          }
+        });
+
+        fleetCount.textContent =
+          `Showing ${visibleCards} aircraft`;
+      });
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
